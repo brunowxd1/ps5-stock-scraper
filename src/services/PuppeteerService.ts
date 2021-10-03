@@ -4,35 +4,37 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import IPuppeteerService from "../interfaces/PuppeteerServiceInterface";
 import TelegramBotService from "./TelegramBotService";
 import puppeteerOptions from "../config/puppeteerConfig";
+import StoreInterface from "../interfaces/StoreInterface";
+import { Browser } from "puppeteer-extra-plugin/dist/puppeteer";
 
 class PuppeteerService implements IPuppeteerService {
   telegramBot;
+  puppeteerBrower: Browser | undefined;
 
   constructor() {
     this.telegramBot = new TelegramBotService();
   }
 
-  scout = async (
-    store: string,
-    url: string,
-    headless: boolean,
-    pageScrapingCommands: any
-  ) => {
+  initializeBrowser = async () => {
+    this.puppeteerBrower = await puppeteer
+      .use(StealthPlugin())
+      .launch({ ...puppeteerOptions, headless: false });
+  };
+
+  scout = async (stores: StoreInterface[]) => {
     try {
-      const browser = await puppeteer
-        .use(StealthPlugin())
-        .launch({ ...puppeteerOptions, headless: headless });
+      stores.map(async (store) => {
+        const page = await this.puppeteerBrower?.newPage();
+        await page?.goto(store.productUrl);
 
-      const page = await browser.newPage();
-      await page.goto(url);
+        const evaluateResult = await page?.evaluate(store.pageScrapingCommands);
 
-      const evaluateResult = await page.evaluate(pageScrapingCommands);
+        if (evaluateResult) {
+          this.telegramBot.sendMessage(store.storeName, store.productUrl);
+        }
 
-      if (evaluateResult) {
-        this.telegramBot.sendMessage(store, url);
-      }
-
-      await browser.close();
+        await page?.close();
+      });
     } catch (error) {
       console.log(error);
     }

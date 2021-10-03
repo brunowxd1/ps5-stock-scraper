@@ -13,16 +13,8 @@ const scrapAll = async () => {
     `As páginas foram verificadas pela ${++SCRAPING_COUNT} vez desde o início do processo`
   );
 
-  Promise.resolve(
-    stores.map(async (store) => {
-      await puppeteerService.scout(
-        store.storeName,
-        store.productUrl,
-        false,
-        store.pageScrapingCommands
-      );
-    })
-  );
+  await puppeteerService.initializeBrowser();
+  await puppeteerService.scout(stores);
 };
 
 scrapAll();

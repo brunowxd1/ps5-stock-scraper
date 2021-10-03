@@ -1,6 +1,11 @@
 const puppeteerArgs = [
   "--no-sandbox",
-  "--disable-setupid-sandbox",
+  "--disable-setuid-sandbox",
+  "--disable-dev-shm-usage",
+  "--disable-accelerated-2d-canvas",
+  "--no-first-run",
+  "--no-zygote",
+  "--disable-gpu",
   "--disable-infobars",
   "--window-position=0,0",
   "--ignore-certifcate-errors",
