@@ -21,7 +21,7 @@ class PuppeteerService implements IPuppeteerService {
     try {
       const browser = await puppeteer
         .use(StealthPlugin())
-        .launch({ ...puppeteerOptions, headless });
+        .launch({ ...puppeteerOptions, headless: headless });
 
       const page = await browser.newPage();
       await page.goto(url);
@@ -32,7 +32,7 @@ class PuppeteerService implements IPuppeteerService {
         this.telegramBot.sendMessage(store, url);
       }
 
-      //await browser.close();
+      await browser.close();
     } catch (error) {
       console.log(error);
     }

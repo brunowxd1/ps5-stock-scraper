@@ -12,7 +12,9 @@
     "puppeteer-extra-plugin-stealth": "^2.8.1"
   },
   "scripts": {
-    "dev:start": "SET NODE_ENV=development & ts-node-dev --transpile-only --ignore-watch node_modules src/index.ts"
+    "build": "tsc",
+    "dev:start": "SET NODE_ENV=development & ts-node-dev --transpile-only --ignore-watch node_modules src/index.ts",
+    "prod:start": "SET NODE_ENV=production & ts-node-dev --transpile-only --ignore-watch node_modules src/index.ts"
   },
   "devDependencies": {
     "@types/node-cron": "^3.0.0",

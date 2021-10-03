@@ -1,9 +1,10 @@
+import cron from "node-cron";
 import PuppeteerService from "./services/PuppeteerService";
 import stores from "./stores";
 
 let SCRAPING_COUNT = 0;
 
-const headless = process.env.NODE_ENV === "development";
+//const headless = process.env.NODE_ENV === "development" ? false : true;
 
 const puppeteerService = new PuppeteerService();
 
@@ -17,12 +18,12 @@ const scrapAll = async () => {
       await puppeteerService.scout(
         store.storeName,
         store.productUrl,
-        headless,
+        false,
         store.pageScrapingCommands
       );
     })
   );
 };
-scrapAll();
 
-//cron.schedule("0 */1 * * * *", scrapAll);
+scrapAll();
+cron.schedule("0 */5 * * * *", scrapAll);
