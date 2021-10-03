@@ -4,7 +4,7 @@ import StoreInterface from "./StoreInterface";
 
 export default interface IPuppeteerService {
   telegramBot: TelegramBotService;
-  puppeteerBrower: Browser | any;
+  puppeteerBrower: Browser | undefined;
   initializeBrowser: () => void;
   scout: (stores: StoreInterface[]) => void;
 }
