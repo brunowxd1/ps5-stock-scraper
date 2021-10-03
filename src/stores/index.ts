@@ -1,8 +1,9 @@
 import { config } from "dotenv";
 
 import StoreInterface from "../interfaces/StoreInterface";
-import AmazonScraper from "./StoresScrapers/AmazonScrapper";
-import MagaluScraper from "./StoresScrapers/MagaluScrapper";
+import AmazonScraper from "./StoresScrapers/AmazonScraper";
+import KabumScraper from "./StoresScrapers/KabumScraper";
+import MagaluScraper from "./StoresScrapers/MagaluScraper";
 
 config();
 
@@ -15,6 +16,12 @@ const magaluScraper = new MagaluScraper(
   "Magalu"
 );
 
-const stores: Array<StoreInterface> = [magaluScraper, amazonScraper];
+const kabumScraper = new KabumScraper(String(process.env.KABUM_URL), "Kabum");
+
+const stores: Array<StoreInterface> = [
+  magaluScraper,
+  amazonScraper,
+  kabumScraper,
+];
 
 export default stores;

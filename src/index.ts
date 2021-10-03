@@ -4,8 +4,6 @@ import stores from "./stores";
 
 let SCRAPING_COUNT = 0;
 
-//const headless = process.env.NODE_ENV === "development" ? false : true;
-
 const puppeteerService = new PuppeteerService();
 
 const scrapAll = async () => {
