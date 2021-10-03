@@ -1,0 +1,23 @@
+{
+  "name": "ps5-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "node-cron": "^3.0.0",
+    "node-telegram-bot-api": "^0.54.0",
+    "puppeteer": "^10.4.0",
+    "puppeteer-extra": "^3.2.3",
+    "puppeteer-extra-plugin-stealth": "^2.8.1"
+  },
+  "scripts": {
+    "dev:start": "SET NODE_ENV=development & ts-node-dev --transpile-only --ignore-watch node_modules src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node-cron": "^3.0.0",
+    "@types/node-telegram-bot-api": "^0.53.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.4.3"
+  }
+}
